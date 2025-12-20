@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifikat Kelulusan - Yota Adiwidya Center</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset Dasar */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Ukuran Kertas A4 Landscape */
+        .certificate-container {
+            width: 297mm;
+            height: 210mm;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 10mm; /* Margin luar */
+            color: #333;
+        }
+
+        /* Border Dekoratif */
+        .border-pattern {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #2E5A35; /* Hijau Tua */
+            padding: 5px;
+            position: relative;
+        }
+
+        .border-inner {
+            width: 100%;
+            height: 100%;
+            border: 10px solid #F4F8F4; /* Hijau Sangat Muda */
+            outline: 2px solid #C5A059; /* Emas */
+            padding: 40px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(248,255,248,1) 100%);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Header (Logo & Serial) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .logo-area img {
+            height: 60px; /* Sesuaikan tinggi logo */
+            /* Placeholder style jika logo belum ada */
+            font-weight: bold;
+            color: #2E5A35;
+        }
+
+        .serial-number {
+            font-size: 12px;
+            color: #888;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* Judul Utama */
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 36px;
+            color: #2E5A35; /* Hijau Yota */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #C5A059; /* Emas */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Isi Sertifikat */
+        .content-text {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .recipient-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 64px;
+            color: #1a1a1a;
+            margin: 10px 0;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .line-divider {
+            width: 200px;
+            height: 1px;
+            background-color: #C5A059;
+            margin: 0 auto 20px auto;
+        }
+
+        .details {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .details strong {
+            color: #2E5A35;
+        }
+
+        /* Footer (Tanggal & Tanda Tangan) */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: auto;
+            padding-bottom: 20px;
+        }
+
+        .date-section {
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .signature-section {
+            text-align: center;
+            width: 200px;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #333;
+            margin-bottom: 10px;
+            height: 40px; /* Ruang untuk gambar tanda tangan */
+        }
+
+        .signer-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2E5A35;
+            text-transform: uppercase;
+        }
+
+        /* Watermark Background (Optional) */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.03;
+            width: 300px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Settings untuk Print / PDF */
+        @media print {
+            body {
+                background: none;
+                -webkit-print-color-adjust: exact;
+            }
+            .certificate-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+            }
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="certificate-container">
+        <div class="border-pattern">
+            <div class="border-inner">
+
+                <div class="header">
+                    <div class="logo-area">
+                        <div style="font-family: 'Cinzel'; color: #2E5A35; font-size: 20px;">
+                            <img src="https://via.placeholder.com/50x50/2E5A35/ffffff?text=Y" alt="Logo Placeholder" style="vertical-align: middle; margin-right: 10px; border-radius: 50%;">
+                            Yota Adiwidya Center
+                        </div>
+                    </div>
+                    <div class="serial-number">
+                        No. Seri: YAC-2025/XI/001
+                    </div>
+                </div>
+
+                <h1 class="title">Sertifikat Kelulusan</h1>
+                <div class="subtitle">Program Edukasi & Inovasi Teknologi</div>
+
+                <p class="content-text">Diberikan sebagai penghargaan kepada:</p>
+
+                <h2 class="recipient-name">Tri Febriansah</h2>
+                <div class="line-divider"></div>
+
+                <div class="details">
+                    <p>Nomor Induk: <strong>123456789</strong></p>
+                    <p>Atas keberhasilannya menyelesaikan program pembelajaran dengan predikat <strong>Sangat Memuaskan</strong>.</p>
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                        Topik: <em>Pengembangan IoT dan Mitigasi Bencana Berbasis STEAM</em>
+                    </p>
+                </div>
+
+                <div class="footer">
+                    <div class="date-section">
+                        Ditetapkan di: Bandung<br>
+                        Tanggal: <strong>01 November 2025</strong>
+                    </div>
+
+                    <div class="signature-section">
+                        <div class="signature-line"></div>
+                        <div class="signer-title">Administrative Officer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

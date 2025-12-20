@@ -1,0 +1,116 @@
+@extends('superadmin.layouts.app')
+
+@section('title', 'Kelola Tiket Bantuan')
+
+@section('content')
+<div class="container mx-auto p-6">
+
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Pusat Bantuan (Helpdesk)</h1>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="flex space-x-4 mb-6 overflow-x-auto">
+        <a href="{{ route('superadmin.support.index') }}"
+           class="px-4 py-2 rounded-lg text-sm font-bold transition {{ !request('status') ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
+            Semua
+        </a>
+        <a href="{{ route('superadmin.support.index', ['status' => 'open']) }}"
+           class="px-4 py-2 rounded-lg text-sm font-bold transition {{ request('status') == 'open' ? 'bg-red-500 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
+            Baru <span class="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">{{ $counts['open'] }}</span>
+        </a>
+        <a href="{{ route('superadmin.support.index', ['status' => 'in_progress']) }}"
+           class="px-4 py-2 rounded-lg text-sm font-bold transition {{ request('status') == 'in_progress' ? 'bg-yellow-500 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
+            Diproses <span class="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">{{ $counts['process'] }}</span>
+        </a>
+        <a href="{{ route('superadmin.support.index', ['status' => 'resolved']) }}"
+           class="px-4 py-2 rounded-lg text-sm font-bold transition {{ request('status') == 'resolved' ? 'bg-green-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300' }}">
+            Selesai <span class="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">{{ $counts['closed'] }}</span>
+        </a>
+    </div>
+
+    <!-- Tabel -->
+    <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+        <table class="w-full text-left border-collapse">
+            <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-xs uppercase font-bold">
+                <tr>
+                    <th class="px-6 py-3">Prioritas</th>
+                    <th class="px-6 py-3">Pengirim & Program</th>
+                    <th class="px-6 py-3">Subjek</th>
+                    <th class="px-6 py-3">Kategori</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Waktu</th>
+                    <th class="px-6 py-3 text-right">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                @forelse($tickets as $ticket)
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                    <td class="px-6 py-4">
+                        @if($ticket->priority == 'high')
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-red-100 text-red-700">
+                                <i class="fas fa-arrow-up mr-1"></i> Tinggi
+                            </span>
+                        @elseif($ticket->priority == 'medium')
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-yellow-100 text-yellow-700">
+                                <i class="fas fa-minus mr-1"></i> Sedang
+                            </span>
+                        @else
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-bold bg-blue-100 text-blue-700">
+                                <i class="fas fa-arrow-down mr-1"></i> Rendah
+                            </span>
+                        @endif
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="font-bold text-gray-900 dark:text-white">{{ $ticket->user->name }}</div>
+                        <div class="text-xs text-gray-500">{{ $ticket->program ? $ticket->program->title : 'Umum / Sistem' }}</div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700 dark:text-gray-300 truncate max-w-xs font-medium">
+                        {{ $ticket->subject }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-xs bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 px-2 py-1 rounded">
+                            {{ $ticket->category_label }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        @php
+                            $colors = [
+                                'open' => 'bg-blue-100 text-blue-800',
+                                'in_progress' => 'bg-yellow-100 text-yellow-800',
+                                'resolved' => 'bg-green-100 text-green-800',
+                                'closed' => 'bg-gray-100 text-gray-800'
+                            ];
+                            $labels = [
+                                'open' => 'Baru', 'in_progress' => 'Diproses', 'resolved' => 'Selesai', 'closed' => 'Tutup'
+                            ];
+                        @endphp
+                        <span class="px-2 py-1 rounded-full text-xs font-bold {{ $colors[$ticket->status] }}">
+                            {{ $labels[$ticket->status] }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-xs text-gray-500">
+                        {{ $ticket->created_at->diffForHumans() }}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="{{ route('superadmin.support.show', $ticket->id) }}" class="text-indigo-600 hover:text-indigo-900 font-bold text-sm">
+                            Kelola
+                        </a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                        <i class="fas fa-check-circle text-4xl mb-3 text-green-500"></i>
+                        <p>Tidak ada tiket yang sesuai filter ini.</p>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="p-4">
+            {{ $tickets->appends(request()->query())->links() }}
+        </div>
+    </div>
+</div>
+@endsection

@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+|--------------------------------------------------------------------------
+| Custom Dark Scrollbar
+|--------------------------------------------------------------------------
+| Ini memaksa scrollbar browser untuk menjadi gelap saat mode gelap aktif.
+*/
+
+/* Untuk Firefox */
+html {
+  scrollbar-color: #a0aec0 #edf2f7; /* thumb track */
+}
+
+html.dark {
+  scrollbar-color: #718096 #2d3748; /* thumb track (dark) */
+}
+
+/* Untuk Chrome, Edge, Safari, dan Opera */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #edf2f7; /* Latar belakang track (terang) */
+  border-radius: 10px;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #2d3748; /* Latar belakang track (gelap) */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a0aec0; /* Warna pegangan (terang) */
+  border-radius: 10px;
+  border: 3px solid #edf2f7; /* Border transparan (terang) */
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: #718096; /* Warna pegangan (gelap) */
+  border-color: #2d3748; /* Border transparan (gelap) */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #718096;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #a0aec0;
+}
