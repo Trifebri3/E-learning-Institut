@@ -96,7 +96,7 @@ Buat Pull Request.
 Proyek ini bersifat Open Source di bawah lisensi MIT.
 
 <p align="center">
-<strong>© 2024 Institut Hijau Indonesia.</strong>
+<strong>© 2025 Institut Hijau Indonesia.</strong>
 
 
 <em>"Membangun Generasi Hijau, Menjaga Masa Depan Bangsa"</em>
